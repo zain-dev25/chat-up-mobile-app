@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../context/authContext";
 import { router } from "expo-router";
+import Customkeyboard from "../src/components/Customkeyboard";
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -32,13 +33,14 @@ export default function SignUp() {
 
   return (
     <SafeAreaView
-      className="flex-1 bg-gray-300 items-center justify-center"
-      style={{ padding: wp(5) }}
+      className="flex-1 bg-gray-300 items-center justify-center mt-20"
+      style={{ paddingHorizontal: wp(5), paddingVertical: hp(2) }}
     >
-      <StatusBar style="dark" />
+      <Customkeyboard>
+        <StatusBar style="dark" />
       <View
-        className="w-full max-w-[420px] bg-white rounded-[20px] border-0.5 border-[#e0dfd8]"
-        style={{ padding: wp(6) }}
+        className="bg-white rounded-[20px] border-0.5 border-[#e0dfd8]"
+        style={{ width: wp(90), padding: wp(6) , marginBottom: hp(3)}}
       >
         {/* Header */}
         <View style={{ marginBottom: hp(2.5) }}>
@@ -157,9 +159,9 @@ export default function SignUp() {
         </View>
 
         {/* Google */}
-        <TouchableOpacity className="flex-row items-center justify-center gap-2 border-0.5 border-[#d0cfc8] rounded-[10px] h-[42px] mb-5">
+        <TouchableOpacity className="flex-row items-center justify-center gap-2 border-0.5 border-[#d0cfc8] rounded-[10px] h-[42px] mb-5 border bg-gray-100">
           <AntDesign name="google" size={24} color="black" />
-          <Text className="text-[13px] font-medium text-[#111]">
+          <Text className="text-[15px] font-serif font-medium text-[#111] ">
             Continue with Google
           </Text>
         </TouchableOpacity>
@@ -172,6 +174,7 @@ export default function SignUp() {
           </Text>
         </TouchableOpacity>
       </View>
+      </Customkeyboard>
     </SafeAreaView>
   );
 }

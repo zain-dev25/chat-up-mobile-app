@@ -111,7 +111,7 @@ export default function SignIn({ navigation }) {
         </View>
 
         {/* Google */}
-        <TouchableOpacity className="flex-row items-center justify-center gap-2 border-0.5 border-[#d0cfc8] rounded-[10px] h-[42px] mb-5">
+        <TouchableOpacity className="flex-row items-center justify-center gap-2 border-0.5 border bg-gray-100 rounded-[10px] h-[42px] mb-5">
           <AntDesign name="google" size={24} color="black" />
           <Text className="text-[13px] font-medium text-[#111]">
             Continue with Google
