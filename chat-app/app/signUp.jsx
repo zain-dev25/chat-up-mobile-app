@@ -9,29 +9,30 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../context/authContext";
 import { router } from "expo-router";
-
-export default function SignUp({ navigation }) {
+export default function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState(""); 
+  const [profile, setProfile] = useState("");
   const { register } = useAuth();
 
   const handleRegister = async () => {
-    if (!username || !email || !password || !confirmPassword) {
-      Alert.alert("Error", "Please fill all fields");
+    if (!username || !email || !password || !profile) {
+      Alert.alert("Sign Up", "Please fill all fields");
       return;
     }
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
-    await register(email, password, username, "");
+   
+    await register(email, password, username, profile );
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setProfile("");
+
   };
 
   return (
     <SafeAreaView
-      className="flex-1 bg-[#f5f4f1] items-center justify-center"
+      className="flex-1 bg-gray-300 items-center justify-center"
       style={{ padding: wp(5) }}
     >
       <StatusBar style="dark" />
@@ -56,7 +57,7 @@ export default function SignUp({ navigation }) {
         <View className="gap-4" style={{ marginBottom: hp(2) }}>
           <View className="gap-1">
             <Text className="text-[11px] font-semibold text-[#888] uppercase tracking-wider">
-              USERNAME
+              User Name
             </Text>
             <View
               className="flex-row items-center bg-[#f5f4f1] border-0.5 border-[#d0cfc8] rounded-[10px] px-3.5"
@@ -117,20 +118,19 @@ export default function SignUp({ navigation }) {
 
           <View className="gap-1">
             <Text className="text-[11px] font-semibold text-[#888] uppercase tracking-wider">
-              CONFIRM PASSWORD
+              Image URL
             </Text>
             <View
               className="flex-row items-center bg-[#f5f4f1] border-0.5 border-[#d0cfc8] rounded-[10px] px-3.5"
               style={{ height: 44 }}
             >
-              <Octicons name="lock" size={16} color="#888" />
+              <Octicons name="image" size={16} color="#888" />
               <TextInput
                 className="flex-1 ml-2 text-[14px] text-[#111]"
-                placeholder="Confirm your password"
+                placeholder="Enter image URL"
                 placeholderTextColor="#aaa"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                secureTextEntry
+                value={profile}
+                onChangeText={setProfile}
               />
             </View>
           </View>

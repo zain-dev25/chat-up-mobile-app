@@ -22,7 +22,7 @@ export default function SignIn({ navigation }) {
 
   return (
     <SafeAreaView
-      className="flex-1 bg-[#f5f4f1] items-center justify-center"
+      className="flex-1 bg-gray-300 items-center justify-center"
       style={{ padding: wp(5) }}
     >
       <StatusBar style="dark" />
@@ -122,7 +122,7 @@ export default function SignIn({ navigation }) {
         <TouchableOpacity onPress={() => router.push("/signUp")}>
           <Text className="text-center text-[12px] text-[#888]">
             No account?{" "}
-            <Text className="text-[#111] font-semibold">Create one</Text>
+            <Text className="text-[#111] font-semibold">Create Account</Text>
           </Text>
         </TouchableOpacity>
       </View>
