@@ -2,7 +2,14 @@ import { Octicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -14,10 +21,21 @@ import { router } from "expo-router";
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const { login } = useAuth();
 
   const handleLogin = async () => {
-    if (email && password) await login(email, password);
+    if (email && password) {
+      setLoading(true);
+      await login(email, password);
+      Alert.alert("Login Successful", "You have been logged in successfully.");
+      setEmail("");
+      setPassword("");
+      setLoading(false);
+    } else {
+      Alert.alert("Please enter email and password");
+    }
   };
 
   return (
@@ -95,12 +113,14 @@ export default function SignIn({ navigation }) {
           className="bg-[#111] rounded-[10px] h-[44px] items-center justify-center mb-4"
           onPress={handleLogin}
         >
-          <View className="flex-row items-center">
+          <View className="flex-row items-center" style={{ display: loading ? "none" : "flex" }}>
             <Text className="text-white text-[14px] font-semibold mr-2">
               Sign in
             </Text>
-            <Octicons name="arrow-right" size={16} color="white" />
-          </View>
+            <Octicons name="arrow-right" size={16} color="white" />          
+            </View>
+
+            {loading && <ActivityIndicator size="large" color="white" />}
         </TouchableOpacity>
 
         {/* Divider */}

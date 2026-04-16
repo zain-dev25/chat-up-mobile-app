@@ -1,7 +1,7 @@
 import { AntDesign, Octicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -15,6 +15,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const [profile, setProfile] = useState("");
+  const [loading, setLoading] = useState(false);
   const { register } = useAuth();
 
   const handleRegister = async () => {
@@ -23,7 +24,10 @@ export default function SignUp() {
       return;
     }
    
-    await register(email, password, username, profile );
+    setLoading(true);
+      await register(email, password, username, profile );
+      setLoading(false);
+ 
     setUsername("");
     setEmail("");
     setPassword("");
@@ -39,18 +43,18 @@ export default function SignUp() {
       <Customkeyboard>
         <StatusBar style="dark" />
       <View
-        className="bg-white rounded-[20px] border-0.5 border-[#e0dfd8]"
+        className="bg-white rounded-[20px] border-0.5 border-[#e0dfd8] rounded-"
         style={{ width: wp(90), padding: wp(6) , marginBottom: hp(3)}}
       >
         {/* Header */}
         <View style={{ marginBottom: hp(2.5) }}>
           <Text
-            className="font-serif font-medium text-[#111] mb-1"
+            className="font-serif font-medium text-[#111] mb-1 text-center"
             style={{ fontSize: hp(3) }}
           >
             Create Account
           </Text>
-          <Text className="text-[13px] text-[#888]">
+          <Text className="text-[13px] text-[#888] text-center">
             Sign up to get started
           </Text>
         </View>
@@ -142,13 +146,17 @@ export default function SignUp() {
         <TouchableOpacity
           className="bg-[#111] rounded-[10px] h-[44px] items-center justify-center mb-4"
           onPress={handleRegister}
+          disabled={loading}
         >
-          <View className="flex-row items-center">
+          <View className="flex-row items-center" style={{ display: loading ? "none" : "flex" }}>
             <Text className="text-white text-[14px] font-semibold mr-2">
               Sign Up
-            </Text>
-            <Octicons name="arrow-right" size={16} color="white" />
+            </Text>  
+            <Octicons name="arrow-right" size={16} color="white" /> 
           </View>
+          {loading && (
+            <ActivityIndicator size="large" color="white" />
+          )}
         </TouchableOpacity>
 
         {/* Divider */}
